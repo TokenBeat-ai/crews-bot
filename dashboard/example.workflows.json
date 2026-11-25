@@ -1,0 +1,12 @@
+[
+  {
+    "id": "WF-SAMPLE-001",
+    "name": "Sample: Three-step plan",
+    "category": "Sample",
+    "purpose": "Try the full loop with fictional materials: draft a plan, review it, and continue the next day.",
+    "path": "../workflows/sample-three-step-plan/README.md",
+    "builtin": true,
+    "is_example": true,
+    "availability": "not_checked"
+  }
+]

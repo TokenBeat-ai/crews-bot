@@ -1,0 +1,7 @@
+{
+  "controller": "First-run example",
+  "updated_at": "Sample data",
+  "is_example": true,
+  "notice": "No tasks yet. Choose an option under Getting started; your agent will create a real task.",
+  "tasks": []
+}

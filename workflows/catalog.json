@@ -1,0 +1,14 @@
+{
+  "schema_version": "3.0",
+  "default_ids": [
+    "001"
+  ],
+  "workflows": [
+    {
+      "id": "WF-SAMPLE-001",
+      "name": "Sample: Three-step plan",
+      "readme": "workflows/sample-three-step-plan/README.md",
+      "is_example": true
+    }
+  ]
+}
