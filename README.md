@@ -34,11 +34,13 @@ Send this to your agent:
 
 ```text
 Install Crews Bot from https://github.com/TokenBeat-ai/crews-bot by following INSTALL.md.
-Preserve any existing data. Then open the dashboard and show me Getting started.
+Preserve any existing data. Register the Crews Bot skill, then open the dashboard and show me Getting started.
 Reply in my language.
 ```
 
 Or do it yourself: see [INSTALL.md](INSTALL.md).
+
+After installation, select **Crews Bot** in a new Codex chat to start or return to your saved workflows and tasks.
 
 ## Try it
 

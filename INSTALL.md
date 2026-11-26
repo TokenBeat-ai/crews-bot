@@ -9,7 +9,8 @@ Installs a fixed version into its own folder, with your data kept separately so 
 ```sh
 git clone https://github.com/TokenBeat-ai/crews-bot.git
 python3 crews-bot/scripts/install_manager.py install --root ~/crews-bot
-python3 ~/crews-bot/releases/*/scripts/open_dashboard.py --root ~/crews-bot
+python3 crews-bot/scripts/install_skill.py --root ~/crews-bot
+python3 ~/.codex/skills/crews-bot/scripts/start.py
 ```
 
 Open the printed address, usually `http://127.0.0.1:18761/dashboard.html`. You can also download the repository as a ZIP instead of cloning.
@@ -37,9 +38,15 @@ python3 dashboard/serve.py --tasks workspace/tasks.json --workflows workspace/wo
 
 ## Connect your agent
 
-1. Tell your agent where Crews Bot is installed and ask it to read `general/getting-started.md`. That is enough to start.
-2. Optional: copy `skills/crews-bot/` into your host's skills folder (for Codex, `~/.codex/skills/crews-bot/`). Then you can say "load Crews Bot", "open the Crews Bot dashboard" or "update Crews Bot".
-3. In the dashboard, open **Getting started** and choose **Try a sample task: Three-step plan**. Copy the prompt and send it to your agent.
+1. Register the installed package with `python3 crews-bot/scripts/install_skill.py --root ~/crews-bot`. Use your actual root for a non-default installation. This creates a separate `crews-bot` skill; other skills are untouched. The default destination respects `CODEX_HOME`; `--skills-dir` overrides it.
+2. In a new Codex chat select **Crews Bot** (or invoke `$crews-bot`) and send the selection; no additional startup phrase is required. If discovery has not refreshed, restart the host and open a new chat. The skill opens the dashboard and reads saved workflows/tasks without automatically executing old tasks.
+3. Next time, select the same skill. No path-pasting or reinstall is needed. Its launcher reuses the matching local dashboard or starts it again. `--port` at registration chooses the preferred port; occupied unrelated ports are skipped.
+
+Registration currently targets Codex on macOS/Linux. Other hosts still use the file-based method until their skill discovery is verified. Option B is an unmanaged preview; use Option A for the registered skill.
+
+Re-running registration for the same root refreshes packaged skill files. A locally edited skill or a different registered root is rejected rather than silently overwritten. Personal installation settings live only in the installed skill, never in the repository. Package updates continue to resolve `installation.json.current`; re-run registration when distributing a new skill version.
+
+To uninstall only the entry, remove the managed `crews-bot` folder from the selected skills directory after checking for personal edits. Keep the installation/workspace to preserve tasks and workflows. This does not stop a running dashboard or remove other skills.
 
 ## Costs
 

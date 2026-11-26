@@ -1,14 +1,18 @@
 ---
 name: crews-bot
-description: Load the Crews Bot coordinator, open the dashboard, or update an installed Crews Bot package. Use only when the user is working with Crews Bot.
+description: Start the Crews Bot coordinator, load saved workflows and tasks, and open its local dashboard. Use when the user asks to use Crews Bot or resume its work.
 ---
 
 # Crews Bot
 
-Use the installation root the user gives you; otherwise use `~/crews-bot`. The root contains `installation.json`. If there are several installations or the target is unclear, ask before switching.
+A bare invocation of this skill is a request to start: load the coordinator and saved workspace, open the dashboard, and show the available next actions. Do not ask the user to type a startup command or repeat their intent. Skill selection in an unsent composer is controlled by the host; these instructions apply when the invocation is sent. If the accompanying request only discusses or edits the skill, address that request without unnecessarily starting the coordinator.
 
-- **Load:** read `installation.json` in the installation root, find the `current` release folder and the `workspace` folder. Follow `general/getting-started.md` and `general/router-method.md` from the current release. Do not copy their rules here.
-- **Open the dashboard:** run `python3 <current release>/scripts/open_dashboard.py --root <installation root>` and open the printed address (side panel if the host supports it, otherwise the browser).
-- **Update:** follow `UPGRADE.md` from the current release and run `scripts/install_manager.py update` for the installation the user named. Never modify the workspace.
+Run `python3 <this skill directory>/scripts/start.py`. The adjacent `installation.json` remembers the registered installation; do not guess a default directory or reinstall on each invocation. If registration is missing, explain that `scripts/install_skill.py --root <existing installation>` from the repository completes installation; preserve existing data.
 
-Loading does not start any work. Separate task conversations depend on the host; see `docs/hosts.md`.
+Read the returned `router` and, when present, `local_entry`. Load the returned workflow registry and task records. Treat old records as context, not authorization to resume all tasks. Read a workflow's original method when the user chooses it. Do not copy private methods into the public package.
+
+Open the returned `url` in the host's side panel if available, otherwise provide the link. The launcher reuses the matching workspace's running server or starts it in the background. On errors, inspect the reported installation and log rather than switching to another workspace.
+
+For a simple startup request, show existing active tasks and available workflows and wait for the user's choice. If the user already supplied a concrete authorized task, continue it without asking them to restate it. Use English by default when the invocation contains no language preference or surrounding conversation. Otherwise reply in the user’s language; never translate stored task or workflow names. Loading itself starts no business work. The host Agent executes tasks; the dashboard is not an Agent runtime.
+
+On a later invocation, run the same launcher: read current saved state, do not recreate the workspace. For update requests, read the current release's UPGRADE.md; honor the user's transport choice and existing local adapter. Never overwrite workspace or unrelated skills. Separate task chats depend on the host's actual capabilities.

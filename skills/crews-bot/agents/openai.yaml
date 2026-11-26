@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crews Bot"
+  short_description: "Start your coordinator and reopen saved workflows and tasks"
+  default_prompt: "Use $crews-bot to start my coordinator, load my existing workflows and tasks, and open the dashboard."
